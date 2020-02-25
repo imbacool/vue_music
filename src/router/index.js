@@ -1,28 +1,20 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import VueRouter from 'vue-router' // 引入vue路由模块
+import Home from '../views/Home.vue' // 引入组件
 
-Vue.use(VueRouter)
+Vue.use(VueRouter) // 使用路由
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/', // 路径
+    name: 'Home', // 命名路由
+    component: Home // 组件
   }
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
+  mode: 'history', // 路由模式  hash/history
+  // base: process.env.BASE_URL, // 应用的基路径。如果整个单页应用服务在 /app/ 下，然后 base 就应该设为 "/app/"。
   routes
 })
 
