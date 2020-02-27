@@ -22,21 +22,21 @@ export default {
 </script>
 
 <style scoped>
-  .active{
-    color: orange;
-    border-bottom: 2px orange solid
-  }
-  .link{
-    background-color: #000;
-    padding: 10px 0;
-    box-sizing: border-box;
-  }
-  span{
-    display: inline-block;
-    width: 25%;
-    height: 30px;
-    text-align: center;
-    line-height: 30px;
-    color: #ccc;
-  }
+.active {
+  color: orange;
+  border-bottom: 2px orange solid;
+}
+.link {
+  background-color: #000;
+  padding: 10px 0;
+  box-sizing: border-box;
+}
+span {
+  display: inline-block;
+  width: 25%;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  color: #ccc;
+}
 </style>
