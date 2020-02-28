@@ -1,24 +1,17 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router' // 引入vue路由模块
 // 引入组件
-import recommend from '@/views/recommend'
-import singer from '@/views/singer'
-import rank from '@/views/rank'
-import search from '@/views/search'
-import swiper from '../components/swiper.vue'
+import recommend from '@/views/Recommend'
+import singer from '@/views/Singer'
+import rank from '@/views/Rank'
+import search from '@/views/Search'
 
 Vue.use(VueRouter) // 使用路由
 
 const routes = [
   {
     path: '/recommend',
-    component: recommend,
-    children: [
-      {
-        path: 'swiper',
-        component: swiper
-      }
-    ]
+    component: recommend
   },
   {
     path: '/singer',
