@@ -2,7 +2,8 @@
   <div class='header'>
     <!-- 如果图片在public目录直接用根路径 -->
     <img src="/favicon.ico" alt="">
-    <span>Chicken Music</span>
+    <span>COOL MUSIC</span>
+    <router-link to="/my" tag="div"></router-link>
   </div>
 </template>
 
@@ -15,7 +16,7 @@ export default {
 <style lang="less" scoped>
 @import '../style/index.less';
 .header{
-  color: @yellow;
+  color: @green;
   font-size:@fs-l;
   display: flex;
   justify-content: center;
@@ -23,8 +24,15 @@ export default {
   .w(375);
   height: 44px;
   img{
-    width: 18px;
-    height: 18px;
+    .w(30);
+    height: 32px;
+    margin-right: 10px;
+  }
+  div{
+    .w(50);
+    height: 50px;
+    background: @green;
+    margin-left: 10px;
   }
 }
 </style>

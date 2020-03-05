@@ -32,17 +32,17 @@ export default {
     line-height: 44px;
     width: 25%;
     font-size: @fs-s;
-    color: rgba(255,255,255,0.5);
+    color: #000;
     span{
       height: 38px;
       display: inline-block;
-      border-bottom: 2px solid @black2;
+      border-bottom: 2px solid @white;
     }
   }
   .sel{
-    color: @yellow;
+    color: @green;
     span{
-      border-bottom: 2px solid @yellow;
+      border-bottom: 2px solid @green;
     }
   }
 }

@@ -5,6 +5,7 @@ import recommend from '@/views/Recommend'
 import singer from '@/views/Singer'
 import rank from '@/views/Rank'
 import search from '@/views/Search'
+import my from '@/views/My'
 
 Vue.use(VueRouter) // 使用路由
 
@@ -24,6 +25,10 @@ const routes = [
   {
     path: '/search',
     component: search
+  },
+  {
+    path: '/my',
+    component: my
   },
   // 重定向
   {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="title">歌曲推荐列表</div>
+    <div class="title">热门歌单推荐</div>
     <ul class="list">
       <li v-for="(item,index) in songList" :key="index">
         <div class="left">
@@ -42,7 +42,7 @@ export default {
   text-align: center;
   line-height: 65px;
   font-size: @fs-s;
-  color: @yellow;
+  color: @green;
 }
 .list {
   li {
@@ -60,8 +60,15 @@ export default {
       }
     }
     .right {
-      color: #fff;
+      color: #000;
       font-size: @fs-s;
+      .name{
+        padding-top: 5px;
+      }
+      .album{
+        color: @gray;
+        margin-top: 10px;
+      }
     }
   }
 }
