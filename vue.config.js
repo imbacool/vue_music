@@ -1,7 +1,3 @@
-// const path = require('path')
-// function resolve (dir) {
-//   return path.join(__dirname, dir)
-// }
 module.exports = {
 //   lintOnSave: false, // 关闭eslint
   devServer: {
@@ -13,14 +9,14 @@ module.exports = {
         pathRewrite: {
           '^/api': '' // 将路径中多余的暗号 删除
         }
+      },
+      '/api2': {
+        target: 'http://47.95.207.1:3000',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api2': '' // 将路径中多余的暗号 删除
+        }
       }
     }
   }
-//   chainWebpack: (config) => {
-//     config.resolve.alias
-//       .set('@', resolve('./src')) // src的绝对路径起一个别名叫@
-//       .set('api', resolve('./src/api'))
-//       .set('style', resolve('./src/style'))
-//       .set('components', resolve('./src/components'))
-//   }
 }
