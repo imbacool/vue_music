@@ -158,23 +158,25 @@ export default {
   .top{
     height: 40px;
     .w(375);
-    color: @green;
+    // color: @green;
+    background: @green;
     position: absolute;
     top:0;
     z-index: 3;
     display: flex;
     justify-content: center;
+    .icon--fanhui{
+      font-size: 22px;
+      color: @white;
+      position: absolute;
+      left: 20px;
+      top: 6px;
+    }
     span:last-of-type{
       font-size: 20px;
       display: inline-block;
       margin-top: 5px;
-    }
-    .icon--fanhui{
-      font-size: 22px;
-      color: @green;
-      position: absolute;
-      left: 20px;
-      top: 6px;
+      color: @white;
     }
   }
   // 头像

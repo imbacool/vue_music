@@ -5,15 +5,18 @@
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
+    <!-- 播放器组件 -->
+    <Player></Player>
   </div>
 </template>
 
 <script>
 import Header from './components/Header'
 import TabBar from './components/TabBar'
+import Player from './components/Player/Player'
 
 export default {
-  components: { Header, TabBar }
+  components: { Header, TabBar, Player }
 }
 </script>
 
