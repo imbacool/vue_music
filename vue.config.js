@@ -1,5 +1,5 @@
 module.exports = {
-//   lintOnSave: false, // 关闭eslint
+  lintOnSave: false, // 关闭eslint
   devServer: {
     proxy: { // 配置代理服务器
       // 接口小暗号

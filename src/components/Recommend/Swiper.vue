@@ -5,6 +5,8 @@
         <img :src="item.picUrl" alt />
       </div>
     </div>
+    <!-- 如果需要分页器 -->
+    <div class="swiper-pagination"></div>
   </div>
 </template>
 
@@ -32,7 +34,17 @@ export default {
       this.$nextTick(() => {
         /* eslint-disable no-new */
         new Swiper('.swiper-container', {
-          loop: true // 循环模式选项
+          // 如果需要分页器
+          pagination: {
+            el: '.swiper-pagination'
+          },
+
+          // 循环模式选项
+          autoplay: {
+            delay: 2000,
+            stopOnLastSlide: false,
+            disableOnInteraction: false
+          }
         })
       })
     }
@@ -41,8 +53,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../style/index.less";
 @import "~swiper/css/swiper.min.css";
+@import "../../style/index.less";
 
 .swiper-container {
   .w(375);

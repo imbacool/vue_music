@@ -1,0 +1,93 @@
+{
+  "id": "1674668",
+  "name": "COOL MUSIC",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "13259967",
+      "name": "arrow-right-circle",
+      "font_class": "arrow-right-circle",
+      "unicode": "e664",
+      "unicode_decimal": 58980
+    },
+    {
+      "icon_id": "13259992",
+      "name": "heart",
+      "font_class": "heart",
+      "unicode": "e668",
+      "unicode_decimal": 58984
+    },
+    {
+      "icon_id": "13260030",
+      "name": "pause-circle",
+      "font_class": "pause-circle",
+      "unicode": "e66e",
+      "unicode_decimal": 58990
+    },
+    {
+      "icon_id": "13260031",
+      "name": "trash",
+      "font_class": "trash",
+      "unicode": "e66f",
+      "unicode_decimal": 58991
+    },
+    {
+      "icon_id": "13260032",
+      "name": "play-circle",
+      "font_class": "play-circle",
+      "unicode": "e670",
+      "unicode_decimal": 58992
+    },
+    {
+      "icon_id": "13260050",
+      "name": "refresh",
+      "font_class": "refresh",
+      "unicode": "e671",
+      "unicode_decimal": 58993
+    },
+    {
+      "icon_id": "13260054",
+      "name": "search",
+      "font_class": "search",
+      "unicode": "e672",
+      "unicode_decimal": 58994
+    },
+    {
+      "icon_id": "13260059",
+      "name": "user",
+      "font_class": "user",
+      "unicode": "e673",
+      "unicode_decimal": 58995
+    },
+    {
+      "icon_id": "13260062",
+      "name": "x-close",
+      "font_class": "x-close",
+      "unicode": "e674",
+      "unicode_decimal": 58996
+    },
+    {
+      "icon_id": "13266282",
+      "name": "3-返回",
+      "font_class": "-fanhui",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "6663738",
+      "name": "ic queue music 24px",
+      "font_class": "icqueuemusicpx",
+      "unicode": "edc2",
+      "unicode_decimal": 60866
+    },
+    {
+      "icon_id": "13259966",
+      "name": "arrow-left-circle",
+      "font_class": "arrow-left-circle",
+      "unicode": "e663",
+      "unicode_decimal": 58979
+    }
+  ]
+}

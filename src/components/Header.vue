@@ -3,7 +3,7 @@
     <!-- 如果图片在public目录直接用根路径 -->
     <img src="/favicon.ico" alt="">
     <span>COOL MUSIC</span>
-    <router-link to="/my" tag="div"></router-link>
+    <router-link to="/my" tag="span" class="iconfont icon-user"></router-link>
   </div>
 </template>
 
@@ -23,16 +23,17 @@ export default {
   align-items: center;
   .w(375);
   height: 44px;
+  position: relative;
   img{
     .w(30);
     height: 32px;
     margin-right: 10px;
+    border-radius: 50%;
   }
-  div{
-    .w(50);
-    height: 50px;
-    background: @green;
-    margin-left: 10px;
+  .icon-user{
+    font-size: 30px;
+    position: absolute;
+    right: 10px;
   }
 }
 </style>
