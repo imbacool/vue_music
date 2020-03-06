@@ -94,6 +94,7 @@ export default {
   methods: {
     goDetail (Fsinger_mid) {
       // console.log('11111')
+      // console.log(Fsinger_mid)
       this.$router.push(`/singer/${Fsinger_mid}`)
     },
     // 手指的触摸移动事件
@@ -205,18 +206,19 @@ export default {
     // background: @white;
     font-Size:@fs-xs;
     padding: 20px 0 20px;
-    color:#000;
+    color:@gray;
     border-radius:10px;
     text-align: center;
     ul{
       position: absolute;
-      right: -8px;
+      right: 0px;
       li{
         width: 20px;
         height: 18px;
       }
       .sel{
         color: @green;
+        font-size: @fs-m;
       }
     }
   }
@@ -231,7 +233,7 @@ export default {
         line-height: 30px;
         background: @green;
         color:@white;
-        font-size: @fs-s;
+        font-size: @fs-m;
         padding-left:20px;
         margin-top: 20px;
       }

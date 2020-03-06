@@ -10,11 +10,11 @@ module.exports = {
           '^/api': '' // 将路径中多余的暗号 删除
         }
       },
-      '/api2': {
+      '/aaa': {
         target: 'http://47.95.207.1:3000',
         changeOrigin: true,
         pathRewrite: {
-          '^/api2': '' // 将路径中多余的暗号 删除
+          '^/aaa': '' // 将路径中多余的暗号 删除
         }
       }
     }

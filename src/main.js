@@ -6,6 +6,7 @@ import VueLazyload from 'vue-lazyload' // 引入图片懒加载
 
 import './style/base.css' // 引入基础样式文件
 import './style/icon/iconfont.css'
+import 'animate.css/animate.min.css'
 
 Vue.config.productionTip = false
 
