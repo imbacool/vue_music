@@ -6,7 +6,7 @@ import singer from '@/views/Singer'
 import rank from '@/views/Rank'
 import search from '@/views/Search'
 import my from '@/views/My'
-// import SingerDetail from '@/views/Singer/SingerDetail'
+import SingerDetail from '@/views/Singer/SingerDetail'
 
 Vue.use(VueRouter) // 使用路由
 
@@ -17,13 +17,13 @@ const routes = [
   },
   {
     path: '/singer',
-    component: singer
-    // children: [
-    //   {
-    //     path: ':singermid',
-    //     component: SingerDetail
-    //   }
-    // ]
+    component: singer,
+    children: [
+      {
+        path: ':singermid',
+        component: SingerDetail
+      }
+    ]
   },
   {
     path: '/rank',

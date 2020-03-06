@@ -41,12 +41,12 @@
         </ul>
       </div>
       <!--嵌套路由 -->
-      <!-- <transition
+      <transition
         enter-active-class="animated slideInRight"
         leave-active-class="animated slideOutRight"
       >
         <router-view></router-view>
-      </transition> -->
+      </transition>
   </div>
 </template>
 <script>
