@@ -1,70 +1,72 @@
 <template>
-  <div class='player' v-if='songList.length'>
+  <div class="player" v-if="songList.length">
     <!-- 大播放器 -->
-    <div v-if='fullScreen' class='big'>
-    <!-- 头部 -->
-     <div class='top'>
-       <span @click='changeScreen(false)' class="iconfont icon--fanhui"></span>
-       {{currentSong.songname}}
-     </div>
-     <!-- 背景 -->
-     <div class='bg'>
-       <img :src="currentSong.albumUrl" alt="">
-     </div>
-     <!-- 歌手 -->
-     <p class='name'>{{currentSong.singer[0].name}}</p>
-     <!-- 专辑图片 -->
-     <div class='img'>
-       <img :class='cd' :src="currentSong.albumUrl" alt="">
-     </div>
+    <div v-if="fullScreen" class="big">
+      <!-- 头部 -->
+      <div class="top">
+        <span @click="changeScreen(false)" class="iconfont icon--fanhui"></span>
+        {{currentSong.songname}}
+      </div>
+      <!-- 背景 -->
+      <div class="bg">
+        <img :src="currentSong.albumUrl" alt />
+      </div>
+      <!-- 歌手 -->
+      <p class="name">{{currentSong.singer[0].name}}</p>
+      <!-- 专辑图片 -->
+      <div class="img">
+        <img :class="cd" :src="currentSong.albumUrl" alt />
+      </div>
 
-     <!-- 歌词 -->
-     <Lyric :seekTime = 'seekTime' :play='play'></Lyric>
+      <!-- 歌词 -->
+      <Lyric :seekTime="seekTime" :play="play"></Lyric>
 
-     <!-- 进度条 -->
-     <MyProgress
-      :startTime = 'startTime'
-      :endTime = 'endTime'
-      @seekFa='seek'
-     ></MyProgress>
+      <!-- 进度条 -->
+      <MyProgress :startTime="startTime" :endTime="endTime" @seekFa="seek"></MyProgress>
 
-     <!-- 播放 -->
-     <div class="play-control">
-        <span @click='changeLoop' class="iconfont icon-refresh"></span>
+      <!-- 播放 -->
+      <div class="play-control">
+        <span @click="changeLoop" class="iconfont icon-refresh"></span>
         <span>{{loops[loop]}}</span>
-        <span @click='prev' class="iconfont icon-arrow-left-circle"></span>
-        <span  @click='togglePlay' :class="isPlay"></span>
-        <span @click='next' class="iconfont icon-arrow-right-circle"></span>
+        <span @click="prev" class="iconfont icon-arrow-left-circle"></span>
+        <span @click="togglePlay" :class="isPlay"></span>
+        <span @click="next" class="iconfont icon-arrow-right-circle"></span>
         <span class="iconfont icon-heart"></span>
-     </div>
+      </div>
 
-     <!-- 播放器 -->
-     <audio ref='audio'
-            @ended='ended'
-            @canplay='canplay'
-            @timeupdate="timeupdate"
-            :src='currentSong.audioUrl'></audio>
+      <!-- 播放器 -->
+      <audio
+        ref="audio"
+        @ended="ended"
+        @canplay="canplay"
+        @timeupdate="timeupdate"
+        :src="currentSong.audioUrl"
+      ></audio>
     </div>
 
     <!-- 小播放器 -->
-    <div v-else
-    class='small'
-    @click='changeScreen(true)'
-    >
-      <img :src="currentSong.albumUrl" alt="">
+    <div v-else class="small" @click="changeScreen(true)">
+      <img :src="currentSong.albumUrl" alt />
       <div>
         <p>{{currentSong.songname}}</p>
         <p>{{currentSong.singer[0].name}}</p>
       </div>
-      <span  @click='togglePlay' :class="isPlay" @click.stop="changeScreen()"></span>
-      <span class="iconfont icon-icqueuemusicpx" @click.stop="changeScreen()" @click="changeList()"></span>
+      <span @click="togglePlay" :class="isPlay"
+            @click.stop="changeScreen()">
+      </span>
+      <span class="iconfont icon-icqueuemusicpx"
+            @click.stop="changeScreen()"
+            @click="changeList()">
+      </span>
 
       <!-- 播放器 -->
-     <audio ref='audio'
-            @ended='ended'
-            @canplay='canplay'
-            @timeupdate="timeupdate"
-            :src='currentSong.audioUrl'></audio>
+      <audio
+        ref="audio"
+        @ended="ended"
+        @canplay="canplay"
+        @timeupdate="timeupdate"
+        :src="currentSong.audioUrl"
+      ></audio>
     </div>
 
     <!-- 歌曲列表 -->
@@ -72,21 +74,19 @@
       <div class="empty" @click="changeList()"></div>
 
       <div class="del">
-        <span class="iconfont icon-refresh" @click='changeLoop'></span>
+        <span class="iconfont icon-refresh" @click="changeLoop"></span>
         <span>{{loops[loop]}}</span>
         <span class="iconfont icon-trash" @click="trash"></span>
       </div>
 
-      <div class='wrapper' ref='wrapper'>
-          <div class='content'>
-            <ul>
-              <li v-for='(item,index) in songList'
-                :key='index'
-                >
-                <p>{{item.songname}}</p>
-              </li>
-            </ul>
-          </div>
+      <div class="wrapper" ref="wrapper">
+        <div class="content">
+          <ul>
+            <li v-for="(item,index) in songList" :key="index">
+              <p>{{item.songname}}</p>
+            </li>
+          </ul>
+        </div>
       </div>
 
       <div class="close" @click="changeList()">关闭</div>
@@ -117,11 +117,20 @@ export default {
       return this.play ? 'cd' : 'cd paused'
     },
     isPlay () {
-      return this.play ? 'iconfont icon-play-circle' : 'iconfont icon-pause-circle'
+      return this.play
+        ? 'iconfont icon-play-circle'
+        : 'iconfont icon-pause-circle'
     }
   },
   methods: {
-    ...mapMutations(['changeScreen', 'nextCurrendIndex', 'prevCurrendIndex', 'changeCurrendIndex', 'changeLoop', 'delAllSong']),
+    ...mapMutations([
+      'changeScreen',
+      'nextCurrendIndex',
+      'prevCurrendIndex',
+      'changeCurrendIndex',
+      'changeLoop',
+      'delAllSong'
+    ]),
     togglePlay () {
       this.play = !this.play
     },
@@ -142,7 +151,9 @@ export default {
     },
     seek (s) {
       // console.log('父组件的方法')
-      if (!this.audio) { return false }
+      if (!this.audio) {
+        return false
+      }
       // 更改播放的时间
       this.audio.currentTime = s
       // 更改歌词的时间
@@ -230,23 +241,23 @@ export default {
 */
 </script>
 <style lang="less" scoped>
-@import '../../style/index.less';
-.player{
+@import "../../style/index.less";
+.player {
   color: #fff;
-  .big{
+  .big {
     position: fixed;
-    top:0px;
+    top: 0px;
     bottom: 0px;
-    left:0;
-    right:0;
+    left: 0;
+    right: 0;
     background: #fff;
-    .top{
+    .top {
       font-size: 18px;
       text-align: center;
       .w(375);
       height: 20px;
       background-color: @green;
-      .icon--fanhui{
+      .icon--fanhui {
         position: absolute;
         top: 6px;
         left: 20px;
@@ -254,26 +265,26 @@ export default {
         font-size: 22px;
       }
     }
-    .name{
+    .name {
       font-size: 14px;
       text-align: center;
       padding: 10px;
       height: 20px;
       background-color: @green;
     }
-    .bg{
+    .bg {
       position: absolute;
       z-index: -9;
       top: 0px;
       width: 100%;
       height: 100%;
       filter: blur(15px);
-      img{
-         width: 100%;
-         height: 100%;
+      img {
+        width: 100%;
+        height: 100%;
       }
     }
-    .img{
+    .img {
       text-align: center;
       // background: red;
       .w(375);
@@ -281,19 +292,19 @@ export default {
       box-sizing: border-box;
       padding-bottom: 73px;
       padding-top: 30px;
-      img{
-          width: 85%;
-          border-radius:50%;
-          border: 10px solid @gray;
+      img {
+        width: 85%;
+        border-radius: 50%;
+        border: 10px solid @gray;
       }
-      & .cd{
+      & .cd {
         animation: rotate 10s linear infinite;
       }
-      & .paused{
+      & .paused {
         animation-play-state: paused;
       }
     }
-    .play-control{
+    .play-control {
       position: relative;
       display: flex;
       justify-content: space-around;
@@ -301,21 +312,24 @@ export default {
       color: @green;
       height: 40px;
       padding: 15px 20px;
-      span:nth-of-type(1),span:nth-of-type(3),span:nth-of-type(5),span:nth-of-type(6){
+      span:nth-of-type(1),
+      span:nth-of-type(3),
+      span:nth-of-type(5),
+      span:nth-of-type(6) {
         font-size: 40px;
       }
-      span:nth-of-type(2){
+      span:nth-of-type(2) {
         position: absolute;
         bottom: -5px;
         left: 24px;
         font-size: 14px;
       }
-      span:nth-of-type(4){
+      span:nth-of-type(4) {
         font-size: 50px;
       }
     }
   }
-  .small{
+  .small {
     position: fixed;
     .w(375);
     bottom: 0px;
@@ -325,69 +339,69 @@ export default {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    img{
+    img {
       .w(45);
       height: 45px;
       border-radius: 50%;
       padding-left: 10px;
     }
-    div{
+    div {
       display: inline-block;
       .w(205);
       height: 42px;
-      p:nth-of-type(1){
+      p:nth-of-type(1) {
         font-size: 14px;
       }
-      p:nth-of-type(2){
+      p:nth-of-type(2) {
         font-size: 12px;
       }
     }
-    span{
+    span {
       font-size: 40px;
     }
   }
   @keyframes rotate {
     0% {
-     transform: rotate(0deg)
+      transform: rotate(0deg);
     }
-    100%{
-      transform: rotate(360deg)
+    100% {
+      transform: rotate(360deg);
     }
   }
-  .SongList{
+  .SongList {
     .w(375);
     position: fixed;
     top: 240px;
     color: #fff;
     background-color: #fff;
-    .empty{
+    .empty {
       height: 240px;
       .w(375);
       position: fixed;
       top: 0;
       opacity: 0;
     }
-    .del{
+    .del {
       height: 60px;
       background-color: @green;
       display: flex;
       align-items: center;
-      justify-content:space-between;
+      justify-content: space-between;
       padding: 0 20px;
       position: relative;
-      .icon-refresh{
+      .icon-refresh {
         font-size: 30px;
       }
-      span:nth-of-type(2){
+      span:nth-of-type(2) {
         font-size: 16px;
         position: absolute;
         left: 60px;
       }
-      .icon-trash{
+      .icon-trash {
         font-size: 20px;
       }
     }
-    .wrapper{
+    .wrapper {
       // position: fixed;
       // background: @green;
       overflow: hidden;
@@ -396,14 +410,14 @@ export default {
       // bottom: 50px;
       // left:0;
       // right: 0;
-      .content{
+      .content {
         // height: 400px;
-      // overflow: hidden;
-      color: #000;
-      background-color: #fff;
+        // overflow: hidden;
+        color: #000;
+        background-color: #fff;
       }
     }
-    .close{
+    .close {
       height: 50px;
       text-align: center;
       font-size: 16px;
