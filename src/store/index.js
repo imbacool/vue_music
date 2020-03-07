@@ -51,6 +51,9 @@ const store = new Vuex.Store({
       } else {
         state.loop++
       }
+    },
+    delAllSong (state) {
+      state.songList = []
     }
   },
   getters: {

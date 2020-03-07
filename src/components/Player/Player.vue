@@ -17,6 +17,7 @@
      <div class='img'>
        <img :class='cd' :src="currentSong.albumUrl" alt="">
      </div>
+
      <!-- 歌词 -->
      <Lyric :seekTime = 'seekTime' :play='play'></Lyric>
 
@@ -50,11 +51,50 @@
     class='small'
     @click='changeScreen(true)'
     >
-      小屏
+      <img :src="currentSong.albumUrl" alt="">
+      <div>
+        <p>{{currentSong.songname}}</p>
+        <p>{{currentSong.singer[0].name}}</p>
+      </div>
+      <span  @click='togglePlay' :class="isPlay" @click.stop="changeScreen()"></span>
+      <span class="iconfont icon-icqueuemusicpx" @click.stop="changeScreen()" @click="changeList()"></span>
+
+      <!-- 播放器 -->
+     <audio ref='audio'
+            @ended='ended'
+            @canplay='canplay'
+            @timeupdate="timeupdate"
+            :src='currentSong.audioUrl'></audio>
+    </div>
+
+    <!-- 歌曲列表 -->
+    <div class="SongList" v-show="show">
+      <div class="empty" @click="changeList()"></div>
+
+      <div class="del">
+        <span class="iconfont icon-refresh" @click='changeLoop'></span>
+        <span>{{loops[loop]}}</span>
+        <span class="iconfont icon-trash" @click="trash"></span>
+      </div>
+
+      <div class='wrapper' ref='wrapper'>
+          <div class='content'>
+            <ul>
+              <li v-for='(item,index) in songList'
+                :key='index'
+                >
+                <p>{{item.songname}}</p>
+              </li>
+            </ul>
+          </div>
+      </div>
+
+      <div class="close" @click="changeList()">关闭</div>
     </div>
   </div>
 </template>
 <script>
+import BS from 'better-scroll'
 import MyProgress from './Progress'
 import Lyric from './lyrics'
 import { mapState, mapMutations, mapGetters } from 'vuex'
@@ -66,7 +106,8 @@ export default {
       endTime: 0,
       loops: ['单曲循环', '列表循环', '随机循环'],
       play: false,
-      seekTime: 0
+      seekTime: 0,
+      show: false
     }
   },
   computed: {
@@ -80,7 +121,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['changeScreen', 'nextCurrendIndex', 'prevCurrendIndex', 'changeCurrendIndex', 'changeLoop']),
+    ...mapMutations(['changeScreen', 'nextCurrendIndex', 'prevCurrendIndex', 'changeCurrendIndex', 'changeLoop', 'delAllSong']),
     togglePlay () {
       this.play = !this.play
     },
@@ -138,6 +179,14 @@ export default {
     prev () {
       // 上一曲
       this.prevCurrendIndex()
+    },
+    changeList () {
+      this.show = !this.show
+      // console.log(this.show)
+    },
+    trash () {
+      this.delAllSong()
+      this.changeList()
     }
   },
   watch: {
@@ -151,13 +200,15 @@ export default {
       } else {
         this.audio.pause()
       }
+    },
+    songList () {
+      this.$nextTick(() => {
+        if (this.songList.length) {
+          const wrapper = this.$refs.wrapper
+          this.bs = new BS(wrapper, { probeType: 3, click: true })
+        }
+      })
     }
-    // currentSong(newValue,oldValue){
-    //     //  歌曲发生改变 应该自动播放
-    //     console.log('歌曲发生改变')
-    //     if(!this.audio){ return false}
-    //     this.audio.play()
-    // }
   }
 }
 /*
@@ -269,7 +320,31 @@ export default {
     .w(375);
     bottom: 0px;
     height: 60px;
-    background: @green
+    background: @green;
+    color: #fff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    img{
+      .w(45);
+      height: 45px;
+      border-radius: 50%;
+      padding-left: 10px;
+    }
+    div{
+      display: inline-block;
+      .w(205);
+      height: 42px;
+      p:nth-of-type(1){
+        font-size: 14px;
+      }
+      p:nth-of-type(2){
+        font-size: 12px;
+      }
+    }
+    span{
+      font-size: 40px;
+    }
   }
   @keyframes rotate {
     0% {
@@ -277,6 +352,66 @@ export default {
     }
     100%{
       transform: rotate(360deg)
+    }
+  }
+  .SongList{
+    .w(375);
+    position: fixed;
+    top: 240px;
+    color: #fff;
+    background-color: #fff;
+    .empty{
+      height: 240px;
+      .w(375);
+      position: fixed;
+      top: 0;
+      opacity: 0;
+    }
+    .del{
+      height: 60px;
+      background-color: @green;
+      display: flex;
+      align-items: center;
+      justify-content:space-between;
+      padding: 0 20px;
+      position: relative;
+      .icon-refresh{
+        font-size: 30px;
+      }
+      span:nth-of-type(2){
+        font-size: 16px;
+        position: absolute;
+        left: 60px;
+      }
+      .icon-trash{
+        font-size: 20px;
+      }
+    }
+    .wrapper{
+      // position: fixed;
+      // background: @green;
+      overflow: hidden;
+      height: 330px;
+      // top:50%;
+      // bottom: 50px;
+      // left:0;
+      // right: 0;
+      .content{
+        // height: 400px;
+      // overflow: hidden;
+      color: #000;
+      background-color: #fff;
+      }
+    }
+    .close{
+      height: 50px;
+      text-align: center;
+      font-size: 16px;
+      line-height: 50px;
+      background-color: @green;
+      position: fixed;
+      bottom: 0;
+      .w(375);
     }
   }
 }
