@@ -8,6 +8,11 @@ import './style/base.css' // 引入基础样式文件
 import './style/icon/iconfont.css'
 import 'animate.css/animate.min.css'
 
+// 引入 mint-ui
+import MintUI from 'mint-ui'
+import 'mint-ui/lib/style.css'
+Vue.use(MintUI)
+
 Vue.config.productionTip = false
 
 // 图片懒加载

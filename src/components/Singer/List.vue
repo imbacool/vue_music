@@ -84,6 +84,7 @@
 */
 import BS from 'better-scroll'
 import { getSingersData, nomalData } from './index'
+import { Indicator } from 'mint-ui'
 
 export default {
   data () {
@@ -175,15 +176,18 @@ export default {
   },
   created () {
     // 初始化数据 把移动距离挂载到this对象下
-
     this.touch = { y: 0 }
-    // console.log(111)
+    Indicator.open({
+      text: '加载中...',
+      spinnerType: 'fading-circle'
+    })
     getSingersData().then((res) => {
     //  处理数据
       const data = nomalData(res.data.list)
       this.singers = data
       // 请求到数据 并更新页面之后再初始化
       this.$nextTick(() => {
+        Indicator.close()
         this.initBs()
       })
     })

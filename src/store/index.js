@@ -52,8 +52,17 @@ const store = new Vuex.Store({
         state.loop++
       }
     },
+    assignLoop (state, num) {
+      state.loop = num
+    },
     delAllSong (state) {
       state.songList = []
+    },
+    delOneSong (state, index) {
+      state.songList.splice(index, 1)
+      if (index < state.currentIndex) {
+        state.currentIndex--
+      }
     }
   },
   getters: {

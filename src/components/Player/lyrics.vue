@@ -74,7 +74,6 @@ export default {
 .lyric{
   position: absolute;
   bottom: 220px;
-  // left: 164px;
   text-align: center;
   font-size: @fs-m;
   display: block;

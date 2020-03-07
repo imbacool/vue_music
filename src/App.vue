@@ -6,7 +6,7 @@
       <router-view></router-view>
     </keep-alive>
     <!-- 播放器组件 -->
-    <Player></Player>
+      <Player></Player>
   </div>
 </template>
 

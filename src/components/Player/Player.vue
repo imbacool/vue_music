@@ -82,10 +82,14 @@
       <div class="wrapper" ref="wrapper">
         <div class="content">
           <ul>
-            <li v-for="(item,index) in songList" :key="index">
-              <p>{{item.songname}}</p>
+            <li v-for="(item,index) in songList" :key="item.songmid">
+              <p @click="changeCurrendIndex(index)"
+                :class="index===currentIndex?'active':''">{{item.songname}}</p>
+              <span class="iconfont icon-heart"></span>
+              <span class="iconfont icon-x-close" @click="delOne(index)"></span>
             </li>
           </ul>
+          <div style="height:15px"></div>
         </div>
       </div>
 
@@ -111,7 +115,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['songList', 'fullScreen', 'loop']),
+    ...mapState(['songList', 'fullScreen', 'loop', 'currentIndex']),
     ...mapGetters(['currentSong']),
     cd () {
       return this.play ? 'cd' : 'cd paused'
@@ -129,7 +133,8 @@ export default {
       'prevCurrendIndex',
       'changeCurrendIndex',
       'changeLoop',
-      'delAllSong'
+      'delAllSong',
+      'delOneSong'
     ]),
     togglePlay () {
       this.play = !this.play
@@ -198,6 +203,10 @@ export default {
     trash () {
       this.delAllSong()
       this.changeList()
+    },
+    delOne (index) {
+      console.log(index)
+      this.delOneSong(index)
     }
   },
   watch: {
@@ -213,10 +222,11 @@ export default {
       }
     },
     songList () {
+      // console.log(this.songList)
       this.$nextTick(() => {
         if (this.songList.length) {
           const wrapper = this.$refs.wrapper
-          this.bs = new BS(wrapper, { probeType: 3, click: true })
+          this.bs = new BS(wrapper, { click: true })
         }
       })
     }
@@ -402,19 +412,38 @@ export default {
       }
     }
     .wrapper {
-      // position: fixed;
-      // background: @green;
       overflow: hidden;
       height: 330px;
-      // top:50%;
-      // bottom: 50px;
-      // left:0;
-      // right: 0;
       .content {
-        // height: 400px;
-        // overflow: hidden;
         color: #000;
         background-color: #fff;
+        li{
+          height: 40px;
+          padding: 0 30px;
+          line-height: 40px;
+          display: flex;
+          align-items: center;
+          position: relative;
+          p{
+            font-size: 16px;
+            .w(270);
+          }
+          & .active{
+              color: @green;
+            }
+          .icon-heart{
+            color: @green;
+            position: absolute;
+            right: 50px;
+            font-size: 20px;
+          }
+          .icon-x-close{
+            color: @green;
+            position: absolute;
+            right: 22px;
+            font-size: 20px;
+          }
+        }
       }
     }
     .close {

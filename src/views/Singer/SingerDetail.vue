@@ -10,7 +10,10 @@
      :style="{'background-image':`url(${avator})`}"
      ref='img'
      >
-       <!-- <div class='shadow'></div> -->
+       <div class='random' ref="random" @click="randomPlay()">
+         <span class="iconfont icon-play-circle"></span>
+         <span>随机播放全部</span>
+       </div>
      </div>
      <!-- 歌曲列表 -->
      <div class='songlist' ref='wrapper'>
@@ -24,6 +27,7 @@
                <p>{{name}}.{{item.albumname}}</p>
             </li>
           </ul>
+          <div style="height:50px"></div>
         </div>
      </div>
   </div>
@@ -32,6 +36,7 @@
 import BS from 'better-scroll'
 import { getSongByMid, getSongUrlByMid } from './index'
 import { mapMutations } from 'vuex'
+import { Indicator } from 'mint-ui'
 export default {
   data () {
     return {
@@ -41,9 +46,14 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['addSongList', 'changeCurrendIndex', 'changeScreen']),
+    ...mapMutations(['addSongList', 'changeCurrendIndex', 'changeScreen', 'assignLoop']),
     back () {
       this.$router.go(-1)
+    },
+    randomPlay () {
+      const random = parseInt(Math.random() * this.list.length)
+      this.openPlay(random)
+      this.assignLoop(2)
     },
     openPlay (index) {
       // 点击歌的li 显示播放器
@@ -55,6 +65,8 @@ export default {
     },
     initBs () {
       const img = this.$refs.img
+      const random = this.$refs.random
+      // console.log(this.$refs.random)
       const imgH = img.clientHeight
       const wrapper = this.$refs.wrapper
       this.bs = new BS(wrapper, { probeType: 3, click: true })
@@ -73,10 +85,12 @@ export default {
             img.style.zIndex = 1
             img.style.paddingTop = '0%'
             img.style.height = '40px'
+            random.style.display = 'none'
           } else {
             img.style.zIndex = -1
             img.style.paddingTop = '70%'
             img.style.height = 0
+            random.style.display = 'flex'
           }
         }
       })
@@ -94,6 +108,10 @@ export default {
     }
   },
   async created () {
+    Indicator.open({
+      text: '加载中...',
+      spinnerType: 'fading-circle'
+    })
     // console.log('detail创建')
     // console.log(this.$route)
     const { singermid } = this.$route.params
@@ -120,6 +138,7 @@ export default {
     this.name = data.data.data.singer_name
     this.avator = `https://y.gtimg.cn/music/photo_new/T001R300x300M000${singermid}.jpg?max_age=2592000`
     this.$nextTick(() => {
+      Indicator.close()
       this.initBs()
     })
   }
@@ -187,13 +206,25 @@ export default {
     position: absolute;
     top: 0px;
     z-index: -1;
-    // .shadow{
-    //   position: absolute;
-    //   top: 0;
-    //   background: rgba(7,17,27,0.3);
-    //   width: 100%;
-    //   height: 100%;
-    // }
+    .random{
+      position: absolute;
+      top: 206px;
+      left: 122px;
+      border-radius: 30px;
+      background-color: @green;
+      .w(135);
+      height: 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      .icon-play-circle{
+        font-size: 18px;
+      }
+      span:nth-of-type(2){
+        font-size: 14px;
+      }
+    }
   }
   // 歌曲列表
   .songlist{
