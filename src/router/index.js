@@ -53,7 +53,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history', // 路由模式  hash/history
+  // mode: 'history', // 路由模式  hash/history
   routes
 })
 
