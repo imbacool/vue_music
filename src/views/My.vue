@@ -1,7 +1,7 @@
 <template>
     <div class="my">
         <span @click='back'>back</span>
-        my
+        <p>功能未开放，敬请期待</p>
     </div>
 </template>
 

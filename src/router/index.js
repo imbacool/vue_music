@@ -15,6 +15,7 @@ const rank = () => import('@/views/Rank')
 const search = () => import('@/views/Search')
 const my = () => import('@/views/My')
 const SingerDetail = () => import('@/views/Singer/SingerDetail')
+const RankDetail = () => import('../components/Rank/RankDetail.vue')
 
 Vue.use(VueRouter) // 使用路由
 
@@ -35,7 +36,13 @@ const routes = [
   },
   {
     path: '/rank',
-    component: rank
+    component: rank,
+    children: [
+      {
+        path: ':topid',
+        component: RankDetail
+      }
+    ]
   },
   {
     path: '/search',

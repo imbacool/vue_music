@@ -31,7 +31,7 @@
         <span @click="prev" class="iconfont icon-arrow-left-circle"></span>
         <span @click="togglePlay" :class="isPlay"></span>
         <span @click="next" class="iconfont icon-arrow-right-circle"></span>
-        <span class="iconfont icon-heart"></span>
+        <span class="iconfont icon-heart" @click="heart"></span>
       </div>
 
       <!-- 播放器 -->
@@ -102,6 +102,7 @@ import BS from 'better-scroll'
 import MyProgress from './Progress'
 import Lyric from './lyrics'
 import { mapState, mapMutations, mapGetters } from 'vuex'
+import { Toast } from 'mint-ui'
 export default {
   components: { MyProgress, Lyric },
   data () {
@@ -207,6 +208,16 @@ export default {
     delOne (index) {
       console.log(index)
       this.delOneSong(index)
+    },
+    heart () {
+      if (this.toast) {
+        this.toast.close()
+      }
+      this.toast = Toast({
+        message: '功能未开放',
+        iconClass: 'iconfont icon-x-close',
+        duration: 1000
+      })
     }
   },
   watch: {

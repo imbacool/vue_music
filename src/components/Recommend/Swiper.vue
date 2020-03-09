@@ -63,7 +63,7 @@ export default {
         this.toast.close()
       }
       this.toast = Toast({
-        message: '请到歌手、排行、搜索点歌',
+        message: '请到歌手页面点歌',
         iconClass: 'iconfont icon-x-close',
         duration: 1000
       })

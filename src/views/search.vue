@@ -1,6 +1,6 @@
 <template>
   <div>
-      search
+    功能未开放，敬请期待
   </div>
 </template>
 

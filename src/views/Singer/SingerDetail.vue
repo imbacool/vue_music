@@ -245,11 +245,18 @@ export default {
        h2{
         height: 20px;
         font-size: 18px;
+        line-height: 20px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
        }
        p{
-        margin-top:3px;
+        margin-top:5px;
         height:20px ;
         color: @gray;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
        }
      }
    }
