@@ -26,7 +26,7 @@ function nomalData (data) {
   for (const key in obj) {
     if (key === 'hot') {
       hot.push({ Findex: key, list: obj[key] })
-    } else if (key !== 9) {
+    } else if (key !== '9') {
       other.push({ Findex: key, list: obj[key] })
     }
   }
