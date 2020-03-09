@@ -122,8 +122,8 @@ export default {
     },
     isPlay () {
       return this.play
-        ? 'iconfont icon-play-circle'
-        : 'iconfont icon-pause-circle'
+        ? 'iconfont icon-pause-circle'
+        : 'iconfont icon-play-circle'
     }
   },
   methods: {
@@ -222,7 +222,6 @@ export default {
       }
     },
     songList () {
-      // console.log(this.songList)
       this.$nextTick(() => {
         if (this.songList.length) {
           const wrapper = this.$refs.wrapper
