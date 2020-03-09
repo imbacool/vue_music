@@ -85,7 +85,7 @@
             <li v-for="(item,index) in songList" :key="item.songmid">
               <p @click="changeCurrendIndex(index)"
                 :class="index===currentIndex?'active':''">{{item.songname}}</p>
-              <span class="iconfont icon-heart"></span>
+              <span class="iconfont icon-heart" @click="heart"></span>
               <span class="iconfont icon-x-close" @click="delOne(index)"></span>
             </li>
           </ul>
@@ -206,7 +206,7 @@ export default {
       this.changeList()
     },
     delOne (index) {
-      console.log(index)
+      // console.log(index)
       this.delOneSong(index)
     },
     heart () {
@@ -234,9 +234,15 @@ export default {
     },
     songList () {
       this.$nextTick(() => {
+        // console.log(222)
         if (this.songList.length) {
+          // console.log(333)
           const wrapper = this.$refs.wrapper
-          this.bs = new BS(wrapper, { click: true })
+          if (this.bs) {
+            this.bs.refresh()
+          } else {
+            this.bs = new BS(wrapper, { click: true })
+          }
         }
       })
     }
