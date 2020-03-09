@@ -1,19 +1,19 @@
 <template>
   <div class="swiper-container">
-    <div class="swiper-wrapper">
+    <div class="swiper-wrapper" @click="jump">
       <div class="swiper-slide" v-for="(item,index) in list" :key="index">
         <img :src="item.picUrl" alt />
       </div>
     </div>
     <!-- 如果需要分页器 -->
-    <div class="swiper-pagination"></div>
+    <div class="swiper-pagination" @click="jump"></div>
   </div>
 </template>
 
 <script>
 import Swiper from 'swiper'
 import axios from 'axios'
-import { Indicator } from 'mint-ui'
+import { Indicator, Toast } from 'mint-ui'
 
 export default {
   data () {
@@ -53,6 +53,19 @@ export default {
             disableOnInteraction: false
           }
         })
+      })
+    }
+  },
+  methods: {
+    jump () {
+      // console.log(this.toast)
+      if (this.toast) {
+        this.toast.close()
+      }
+      this.toast = Toast({
+        message: '请到歌手、排行、搜索点歌',
+        iconClass: 'iconfont icon-x-close',
+        duration: 1000
       })
     }
   }

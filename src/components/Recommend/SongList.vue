@@ -2,7 +2,7 @@
   <div>
     <div class="title">热门歌单推荐</div>
     <ul class="list">
-      <li v-for="(item,index) in songList" :key="index">
+      <li v-for="(item,index) in songList" :key="index" @click="jump">
         <div class="left">
           <!-- 图片懒加载 -->
           <img v-lazy="item.imgurl" alt />
@@ -19,7 +19,7 @@
 
 <script>
 import axios from 'axios'
-import { Indicator } from 'mint-ui'
+import { Indicator, Toast } from 'mint-ui'
 
 export default {
   data () {
@@ -37,6 +37,19 @@ export default {
         Indicator.close()
         this.songList = res.data.data.list
       })
+  },
+  methods: {
+    jump () {
+      // console.log(this.toast)
+      if (this.toast) {
+        this.toast.close()
+      }
+      this.toast = Toast({
+        message: '请到歌手、排行、搜索点歌',
+        iconClass: 'iconfont icon-x-close',
+        duration: 800
+      })
+    }
   }
 }
 </script>

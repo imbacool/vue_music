@@ -28,7 +28,8 @@ export default {
       },
       pullUpLoad: {
         threshold: 50
-      }
+      },
+      click: true
     })
     // 监听下拉刷新
     this.bs.on('pullingDown', () => {
