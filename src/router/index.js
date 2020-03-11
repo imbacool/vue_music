@@ -16,13 +16,20 @@ const search = () => import('@/views/Search')
 const my = () => import('@/views/My')
 const SingerDetail = () => import('@/views/Singer/SingerDetail')
 const RankDetail = () => import('../components/Rank/RankDetail.vue')
+const RecommendDetail = () => import('../components/Recommend/RecommendDetail.vue')
 
 Vue.use(VueRouter) // 使用路由
 
 const routes = [
   {
     path: '/recommend',
-    component: recommend
+    component: recommend,
+    children: [
+      {
+        path: ':disstid',
+        component: RecommendDetail
+      }
+    ]
   },
   {
     path: '/singer',

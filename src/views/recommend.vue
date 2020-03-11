@@ -1,4 +1,5 @@
 <template>
+<div>
   <!-- 滚动区域 -->
   <div class="wrapper" ref="wrapper">
     <div class="content">
@@ -8,6 +9,15 @@
       <songList></songList>
     </div>
   </div>
+
+  <!--嵌套路由 -->
+  <transition
+    enter-active-class="animated slideInRight"
+    leave-active-class="animated slideOutRight"
+  >
+    <router-view></router-view>
+  </transition>
+</div>
 </template>
 
 <script>

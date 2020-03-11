@@ -1,5 +1,5 @@
 <template>
-    <div class='detail' @click="jump">
+    <div class='detail'>
     <!-- 头部导航 -->
      <div class='top'>
        <span @click='back' class="iconfont icon--fanhui"></span>
@@ -10,7 +10,7 @@
      :style="{'background-image':`url(${avator})`}"
      ref='img'
      >
-       <div class='random' ref="random">
+       <div class='random' ref="random" @click="randomPlay()">
          <span class="iconfont icon-play-circle"></span>
          <span>随机播放全部</span>
        </div>
@@ -21,6 +21,7 @@
           <ul>
             <li v-for='(item,index) in list'
               :key='index'
+              @click="openPlay(index)"
               >
                <h2>{{item.data.songname}}</h2>
                <p>{{item.data.singer[0].name}}.{{item.data.albumname}}</p>
@@ -35,31 +36,34 @@
 <script>
 import axios from 'axios'
 import BS from 'better-scroll'
-// import { mapMutations } from 'vuex'
-import { Indicator, Toast } from 'mint-ui'
+import { mapMutations } from 'vuex'
+import { Indicator } from 'mint-ui'
 export default {
   data () {
     return {
       list: [],
       title: '',
-      avator: ''
+      avator: '',
+      songlist: []
     }
   },
   methods: {
-    // ...mapMutations(['addSongList', 'changeCurrendIndex', 'changeScreen', 'assignLoop']),
+    ...mapMutations(['addSongList', 'changeCurrendIndex', 'changeScreen', 'assignLoop']),
     back () {
       this.$router.go(-1)
     },
-    jump () {
-      // console.log(this.toast)
-      if (this.toast) {
-        this.toast.close()
-      }
-      this.toast = Toast({
-        message: '请到歌手页面点歌',
-        iconClass: 'iconfont icon-x-close',
-        duration: 1000
-      })
+    randomPlay () {
+      const random = parseInt(Math.random() * this.songlist.length)
+      this.openPlay(random)
+      this.assignLoop(2)
+    },
+    openPlay (index) {
+      // 点击歌的li 显示播放器
+      this.addSongList(this.songlist)
+      // 确定点击的是那首歌
+      this.changeCurrendIndex(index)
+      // 点击屏幕变大
+      this.changeScreen(true)
     }
   },
   mounted () {
@@ -104,12 +108,45 @@ export default {
     const url = '/aaa/fcj/music/rankSongList'
     axios.post(url, { topid })
       .then(res => {
-        Indicator.close()
         // console.log(res.data.songlist)
         // console.log(res.data)
         this.list = res.data.songlist
         this.title = res.data.topinfo.ListName
         this.avator = `https://y.gtimg.cn/music/photo_new/T002R300x300M000${res.data.songlist[0].data.albummid}.jpg?max_age=2592000`
+
+        // 处理数据
+        const mids = []
+        res.data.songlist.map(item => {
+          const obj = {}
+          obj.albummid = item.data.albummid
+          obj.albumname = item.data.albumname
+          obj.singer = item.data.singer
+          obj.songmid = item.data.songmid
+          obj.songname = item.data.songname
+          obj.albumUrl = `https://y.gtimg.cn/music/photo_new/T002R300x300M000${item.data.albummid}.jpg?max_age=2592000`
+          this.songlist.push(obj)
+          mids.push(item.data.songmid)
+        })
+        // console.log(this.songlist)
+        // console.log(mids)
+        let urls = []
+        axios.post('/aaa/fcj/music/songurl', { mids })
+          .then(res => {
+            Indicator.close()
+            // console.log(res)
+            urls = res.data.urls
+            // console.log(urls)
+            const finalData = []
+            for (let index = 0; index < this.songlist.length; index++) {
+              this.songlist[index].audioUrl = urls[index]
+              if (urls[index]) {
+                // 将不能播放的歌曲去除
+                finalData.push(this.songlist[index])
+              }
+            }
+            // console.log(finalData)
+            this.songlist = finalData
+          })
       })
   }
 }
