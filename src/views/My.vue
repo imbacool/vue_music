@@ -5,15 +5,10 @@
           <span>我的歌曲收藏列表</span>
         </div>
 
-        <div class='random' ref="random">
-         <span class="iconfont icon-play-circle"></span>
-         <span>随机播放全部</span>
-       </div>
-
        <div class="wrapper" ref="wrapper">
          <ul class="content">
            <li v-for="(item,index) in List" :key="index">{{item}}
-             <span class="iconfont icon-x-close"></span>
+             <!-- <span class="iconfont icon-x-close" @click="del(index)"></span> -->
            </li>
          </ul>
        </div>
@@ -25,7 +20,7 @@ import BS from 'better-scroll'
 export default {
   data () {
     return {
-      List: ['111', '222', '333', '111', '222', '333', '111', '222', '333', '111', '222', '333', '111', '222', '333', '111', '222', '333', '111', '222', '333', '111', '222', '333', '111', '222', '333']
+      List: []
     }
   },
   methods: {
@@ -33,9 +28,27 @@ export default {
       this.$router.go(-1)
     }
   },
+  created () {
+    if (localStorage.getItem('myFavor')) {
+      const str = localStorage.getItem('myFavor')
+      this.List = str.split(',')
+    }
+  },
   mounted () {
     const wrapper = this.$refs.wrapper
     this.bs = new BS(wrapper, { click: true })
+  },
+  activated () {
+    if (localStorage.getItem('myFavor')) {
+      const str = localStorage.getItem('myFavor')
+      this.List = str.split(',')
+    }
+    if (this.bs) {
+      this.bs.refresh()
+    } else {
+      const wrapper = this.$refs.wrapper
+      this.bs = new BS(wrapper, { click: true })
+    }
   }
 }
 </script>
@@ -72,28 +85,9 @@ export default {
       color: @white;
     }
   }
-  .random{
-    position: absolute;
-    top: 70px;
-    left: 122px;
-    border-radius: 30px;
-    background-color: @green;
-    .w(135);
-    height: 32px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    .icon-play-circle{
-      font-size: 18px;
-    }
-    span:nth-of-type(2){
-      font-size: 14px;
-    }
-  }
   .wrapper{
     position: fixed;
-    top: 120px;
+    top: 50px;
     left: 0;
     right: 0;
     bottom: 0;

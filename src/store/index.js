@@ -18,6 +18,7 @@ const store = new Vuex.Store({
     addSongList (state, params) {
       // params 要播放的歌曲列表
       state.songList = params
+      // console.log(state.songList)
     },
     changeCurrendIndex (state, index) {
       // 修改当前正在播放那首歌

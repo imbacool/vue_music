@@ -31,7 +31,7 @@
         <span @click="prev" class="iconfont icon-arrow-left-circle"></span>
         <span @click="togglePlay" :class="isPlay"></span>
         <span @click="next" class="iconfont icon-arrow-right-circle"></span>
-        <span class="iconfont icon-heart" @click="heart"></span>
+        <span class="iconfont icon-heart" @click.once="heart(songList[currentIndex].songname)"></span>
       </div>
 
       <!-- 播放器 -->
@@ -85,7 +85,7 @@
             <li v-for="(item,index) in songList" :key="item.songmid">
               <p @click="changeCurrendIndex(index)"
                 :class="index===currentIndex?'active':''">{{item.songname}}</p>
-              <span class="iconfont icon-heart" @click="heart"></span>
+              <span class="iconfont icon-heart" @click.once="heart(item.songname)"></span>
               <span class="iconfont icon-x-close" @click="delOne(index)"></span>
             </li>
           </ul>
@@ -112,7 +112,13 @@ export default {
       loops: ['单曲循环', '列表循环', '随机循环'],
       play: false,
       seekTime: 0,
-      show: false
+      show: false,
+      heartList: []
+    }
+  },
+  created () {
+    if (localStorage.getItem('myFavor')) {
+      this.heartList = localStorage.getItem('myFavor').split(',')
     }
   },
   computed: {
@@ -204,19 +210,18 @@ export default {
     trash () {
       this.delAllSong()
       this.changeList()
+      this.play = false
     },
     delOne (index) {
       // console.log(index)
       this.delOneSong(index)
     },
-    heart () {
-      if (this.toast) {
-        this.toast.close()
-      }
-      this.toast = Toast({
-        message: '功能未开放',
-        iconClass: 'iconfont icon-x-close',
-        duration: 1000
+    heart (songname) {
+      this.heartList.push(songname)
+      localStorage.setItem('myFavor', this.heartList)
+      Toast({
+        message: '收藏成功',
+        duration: 800
       })
     }
   },
