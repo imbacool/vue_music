@@ -245,6 +245,14 @@ export default {
           }
         }
       })
+    },
+    currentSong (newValue, oldValue) {
+      //  歌曲发生改变 应该自动播放
+      // console.log('歌曲发生改变')
+      setTimeout(() => {
+        // console.log(this.$refs.audio)
+        this.$refs.audio.play()
+      }, 500)
     }
   }
 }
